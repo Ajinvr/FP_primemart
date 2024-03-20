@@ -1,0 +1,38 @@
+@font-face {
+    font-family: "body";
+    src: url("../assets/fonts/body.ttf");
+  }
+
+@font-face {
+    font-family: "heading";
+    src: url("../assets/fonts/heading.ttf");
+}  
+
+@font-face {
+    font-family:"highlight";
+    src: url("../assets/fonts/heilight.ttf");
+}  
+
+
+.apm{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    
+}
+
+.afd{
+    width: 500px;
+    border: 2px solid black ;
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+}
+
+.afd input{
+    height: 50px;
+    width: 400px;
+    background-color: yellow;
+    margin: 5px;
+}

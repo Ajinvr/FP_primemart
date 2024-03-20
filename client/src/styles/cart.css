@@ -1,0 +1,84 @@
+.cd{
+    height: 100vh;
+}
+
+.empty-cart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+    text-align: center;
+    font-family: sans-serif;
+  }
+  
+  .empty-cart h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .empty-cart p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .empty-cart button {
+    background-color: #333;
+    color: #fff;
+    height: 50px;
+    width: 200px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .empty-cart button:hover {
+    background-color: #222;
+  }
+  
+  .empty-cart img {
+    width: 200px;
+    height: 200px;
+    margin-top: 2rem;
+  }
+  
+
+
+
+
+  /* Cart.css */
+
+.cart-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around; /* Distribute items evenly */
+    margin: 10px auto;
+    gap: 30px;
+    width: 80%;
+}
+
+.cida{
+margin: 10px;
+}
+
+.cid{
+  margin: 20px;
+  padding: 10px;
+  overflow: hidden;
+  display: flex;
+  border: 1px solid black;
+  gap:30px;
+  width: 80vw;
+}
+
+.cid img{
+ height: 150px;
+ width: 150px;
+ border: 1px solid black;
+}
+
+.dbtn{
+ 
+}

@@ -1,0 +1,99 @@
+.pdm{
+    display: flex;
+    padding: 10px;
+}
+
+
+.idv{
+   width: 50%;
+}
+
+.idv img{ 
+    padding: 50px;
+    width: 500px;
+    height: 500px;
+}
+
+
+.ddv{
+margin-top: 50px;
+}
+
+.btns{
+ gap: 50px;
+ display: flex;
+}
+
+.btns button{
+    width: 150px;
+    height: 50px;
+    background-color: #FFAE42;
+}
+
+@media (max-width:1000px) {
+    .idv img{ 
+        padding: 50px;
+        width: 400px;
+        height: 400px;
+    }
+    
+}
+
+
+
+@media (max-width:800px) {
+    .idv img{ 
+        padding: 50px;
+        width: 350px;
+        height: 350px;
+    }
+
+    .btns button{
+        width: 100px;
+        height: 40px;
+    }
+    
+}
+
+@media (max-width:672px) {
+    .pdm{
+        display: block;
+        padding: 10px;
+    }
+    .idv{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin: 0px;
+        padding: 10px;
+     }
+     .ddv{
+        padding: 20px;
+     }
+     .idv img{ 
+        padding: 50px;
+        width: 350px;
+        height: 350px;
+    }
+
+    .btns button{
+        width: 100%;
+        height: 40px;
+    }
+
+    .btns{
+        display: flex;
+        gap: 10px;
+       }
+}
+
+.loader{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    
+
+}
