@@ -1,51 +1,72 @@
-
-.empty-cart {
-   height: 100vh;
+/* Default styles */
+.order-page {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 50vh;
-    text-align: center;
-    font-family: sans-serif;
+    width: 90vw;
+    margin: 0 auto;
   }
   
-  .empty-cart h1 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+  .order-products {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
   }
   
-  .empty-cart p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
+  .order-form {
+    padding: 20px;
   }
   
-  .empty-cart button {
-    background-color: #333;
+  .order-page h2 {
+    margin-top: 0;
+  }
+  
+  .order-page ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .order-page li {
+    margin-bottom: 5px;
+  }
+  
+  .order-page .total-price {
+    margin-top: 20px;
+    font-weight: bold;
+  }
+  
+  .order-page .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .order-page label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .order-page input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .order-page button {
+   height: 40px;
+   width: 100%;
+   margin-top: 20px;
+    background-color: #fca22d;
     color: #fff;
-    height: 50px;
-    width: 200px;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
   }
   
-  .empty-cart button:hover {
-    background-color: #222;
-  }
-  
-  .empty-cart img {
-    width: 200px;
-    height: 200px;
-    margin-top: 2rem;
+  .order-page button:hover {
+    background-color: #FFAE42;
   }
   
 
-
-  /* Cart.css */
-
-.cart-container {
+  .cart-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -74,11 +95,7 @@
  border: 1px solid black;
 }
 
-.cpq{
-  width: fit-content;
-  border: 1px solid black;
-  gap: 10px;
-}
+
 
 .cpq button{
   font-size: 15px;
@@ -110,16 +127,6 @@ width: 90px;
   display: flex;
   gap: 20px;
   align-items: center;
-}
-
-.cpb{
-  background-color: #FFAE42;
-  height: 50px;
-  width: 90vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 50px;
 }
 
 @media (max-width:600px) {

@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import "../styles/productdetails.css"
-import { useSelector } from 'react-redux';
-import { animated } from '@react-spring/web'
-import {useSpring} from '@react-spring/web'
+import { useSelector,useDispatch } from 'react-redux';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
+import Loader from './Loader';
+import { setpath } from '../redux/features/redirectSlice';
+import { storeorderitem } from '../redux/features/orderitem';
 
 function ProductDetail() {
+  const dispatch = useDispatch();
+
   let { id } = useParams();
   const [product, setProduct] = useState(null);
   const navigate = useNavigate();
@@ -15,12 +18,7 @@ function ProductDetail() {
   const token = useSelector(state => state.auth.value.token)
   const isAuthenticated = useSelector(state => state.auth.value.isAuthenticated)
 
-  const springs = useSpring({
-    from: { x: -300},
-    to: { x: 300},
-    loop:true,
-  })
-
+ 
  
 
   useEffect(() => {
@@ -29,30 +27,6 @@ function ProductDetail() {
     setProduct(fp)
   }, [storeProduct, id]);
 
-
-
-  
-  // const shareCurrentPage = () => {
-  //   if (navigator.share) {
-  //     navigator.share({
-  //       title: document.title,
-  //       url: window.location.href
-  //     })
-  //     .then(() => console.log('Shared successfully'))
-  //     .catch((error) => console.error('Error sharing:', error));
-  //   } else {
-  //     // Fallback for browsers that don't support Web Share API
-  //     const shareUrl = window.location.href;
-  //     if (navigator.clipboard) {
-  //       navigator.clipboard.writeText(shareUrl)
-  //         .then(() => alert('URL copied to clipboard'))
-  //         .catch((error) => console.error('Error copying to clipboard:', error));
-  //     } else {
-  //       // Fallback for browsers that don't support clipboard API
-  //       alert('Cannot share. Please copy the URL manually.');
-  //     }
-  //   }
-  // }
   
   const notify = (message,status) => {
     toast[status](message, {
@@ -90,6 +64,16 @@ function ProductDetail() {
     }
 }
 
+
+function order() {
+  dispatch(storeorderitem([product]))
+    dispatch(setpath('/order'))
+  navigate('/order')
+}
+
+
+
+
   return (
     <div>
       {product ? (
@@ -105,14 +89,15 @@ function ProductDetail() {
           <p>{product.description}</p> 
           <div id={product._id} className='btns'>
               <button onClick={addToCart}>Add to cart</button>
-              <button>Buy now</button>
+              <button onClick={order} >Buy now</button>
           </div>
          </div>
         </div>
       ) : (
-       <div className='loader'>
-        <h2>Loading</h2>
-                 <animated.div style={{width: 80,height: 80,background:'#FFAE42',borderRadius: 150,...springs}}/>
+       <div className='loaderdiv'>
+         <div>
+         <Loader/>  
+         </div>
        </div>
       )}
        <ToastContainer />

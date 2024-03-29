@@ -5,14 +5,16 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch ,useSelector } from 'react-redux';
 import {authuser} from '../redux/features/authSlice';
 
 const Login = () => {
+  let value;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  let value;
+  const rp = useSelector(state => state.redirect.value)
+  
   // Err===============================================
 const [emailerr, setemailerr] = useState("");
 const [passworderr, setpassworderr] = useState("");
@@ -108,10 +110,11 @@ if (emailv === true && passwordv === true) {
                 }
                    else if (result.data.user === true ) {
                         notify(result.data.message,result.data.toaststatus);
-                        dispatch(authuser(result.data));
-                              // setTimeout(() => {
-                              //            navigate('/');
-                              // }, 1000);
+                             dispatch(authuser(result.data));
+                                 console.log(rp);
+                                   setTimeout(() => {
+                                         navigate(`${rp}`);
+                                    }, 1000);
                     }
 
     }catch (error) {

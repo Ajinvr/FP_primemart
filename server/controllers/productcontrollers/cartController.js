@@ -27,7 +27,6 @@ exports.getcart = async (req, res) => {
         let cartItem = await cart.findOne({ email, productid });
 
         if (cartItem) {
-            // await cart.updateOne({ email, productid }, { $inc: { quantity: 1 } });
             cartItem.quantity = parseInt(cartItem.quantity) + 1;
             await cartItem.save();
             res.json({ message: 'quantity updated', toaststatus: "success" });
@@ -49,14 +48,11 @@ exports.getcart = async (req, res) => {
     try {
           let email =  req.body.user.email
              let productid = req.body.productid
-                 let type  = req.method;
+                 let type  = req.body.action;
                      let cartItem = await cart.findOne({ email, productid });
-        if (!cartItem) {
-            return res.status(404).json({ message: 'Item not found in the cart' });
-        }
-        if (type == 'PUT') {
-
-                  if (cartItem.quantity == 1) {
+        
+        if (type == 'put') {
+                  if (cartItem.quantity <= 0) {
                         await cart.deleteOne({ email, productid });
                             res.status(200).json({ message: 'Product removed from the cart',toaststatus: "success"});
                   } else {
@@ -65,7 +61,7 @@ exports.getcart = async (req, res) => {
                                  res.status(200).json({ message: 'successfull' });
                   }
 
-        } else if (type == 'DELETE') {
+        } else if (type == 'delete') {
                          await cart.deleteOne({ email, productid });
                                 res.status(200).json({ message: 'Product removed from the cart.',toaststatus: "success"});
         } else {

@@ -5,10 +5,13 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "../styles/signup.css"
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {authuser} from '../redux/features/authSlice';
 
 function Signup() {
+
+  const rp = useSelector(state => state.redirect.value)
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // State for error messages
@@ -85,7 +88,7 @@ function Signup() {
           notify(result.data.message,result.data.toaststatus);
           dispatch(authuser(result.data));
           setTimeout(() => {
-            navigate('/');
+            navigate(`${rp}`);
           }, 1000);
         } else {
           console.log(result.data);

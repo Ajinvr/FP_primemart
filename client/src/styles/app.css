@@ -1,0 +1,27 @@
+.loaderdiv{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-spinner {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .hd{
+    display: flex;
+    justify-content: center;
+  }
+
+  .hd h2{
+  border-bottom: 2px solid;
+  }
+
+
+  /* body{
+    background-color: black;
+    color: white;
+  } */

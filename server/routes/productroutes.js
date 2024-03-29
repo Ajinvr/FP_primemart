@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const auth = require("../middlewares/tokenauth");
 const addfile = require("../middlewares/filesave")
-const cartController = require("../controllers/productcontrollers/cartcontroller");
+const cartController = require('../controllers/productcontrollers/cartController')
 const addProductsController = require("../controllers/productcontrollers/ProductController");
 const order = require("../controllers/productcontrollers/orderController")
 

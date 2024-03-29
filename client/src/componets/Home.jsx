@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import "../styles/home.css";
+import Loader from './Loader';
+import Headline from './Headline';
 
 function Home() {
   const navigate = useNavigate();
@@ -24,11 +26,16 @@ function Home() {
             <img id={element._id} src={element.filename} alt="Product" />
             <div className='pdiv'><p className='pt'>{element.title}</p></div>
             <hr/>
-            <h4>${element.price}</h4>
+            <h5>${element.price}</h5>
+            <button className='hac'>Add to cart</button>
           </div>
         ))
       ) : (
-        <p>Loading...</p> 
+        <div className='loaderdiv'>
+          <div>
+             <Loader/>  
+          </div>
+       </div>
       )}
     </div>
   );

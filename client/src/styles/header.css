@@ -72,7 +72,33 @@
     display: none;
 }
 
+.pd{
+    height: fit-content;
+    background-color: #FFAE42;
+    position: absolute;
+    top: 70px;
+    right: 5px;
+    border: 1px solid white;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
 
+.pd div{
+    padding: 5px;
+    
+}
+
+
+
+.pd div a{
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    transition: .2s;
+}
+
+.pd div a:hover{
+  color:#ffffff;
+}
 
 /* mrs */
 
@@ -101,3 +127,17 @@
       }
       
 }
+
+
+#sun, #moon {
+    opacity: 0;
+  }
+  
+  .light-mode #sun {
+    opacity: 1;
+  }
+  
+  .dark-mode #moon {
+    opacity: 1;
+  }
+  
