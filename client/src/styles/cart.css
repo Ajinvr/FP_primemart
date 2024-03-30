@@ -49,7 +49,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-around; /* Distribute items evenly */
+    justify-content: space-around; 
     margin: 10px auto;
     gap: 30px;
     width: 100%;
@@ -57,41 +57,40 @@
 
 
 
-.cid{
+.cart-item-div{
   margin: 20px;
-  padding: 10px;
+  padding: 20px;
   overflow: hidden;
   display: flex;
+  border-radius: 5px;
   border: 1px solid black;
   gap:30px;
-  width: 80vw;
+  width: 90vw ;
 }
 
-.cid img{
+.cart-item-div img{
   padding: 20px;
  height: 150px;
  width: 150px;
- border: 1px solid black;
 }
 
-.cpq{
+.cart-product-quantity{
+  border-radius: 5px;
   width: fit-content;
   border: 1px solid black;
   gap: 10px;
 }
 
-.cpq button{
+.cart-product-quantity button{
   font-size: 15px;
   height: 30%;
-  padding: 5px 10px;
+  padding: 6px 10px;
   color: rgb(0, 0, 0);
 }
 
-.cpq button:hover{
-  background-color: rgb(255, 255, 255);
-}
 
-.dd p{
+
+.cart-text p{
   width: 99%;
   display: -webkit-box;
   -webkit-line-clamp:2;
@@ -99,35 +98,38 @@
    overflow: hidden;
 }
 
-.cpr button{
+.remove-btn button{
+border-radius: 5px;
 background-color: red;
 color: white;
-height: 33px;
+height: 35px;
 width: 90px;
 }
 
-.bg{
+.pqr-div{
   display: flex;
   gap: 20px;
   align-items: center;
 }
 
-.cpb{
+.order-btn{
   background-color: #FFAE42;
-  height: 50px;
+  height: 55px;
   width: 90vw;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 50px;
+  border-radius: 5px;
+  
 }
 
 @media (max-width:600px) {
-  .cid{
+  .cart-item-div{
     display: block;
   }
 
-  .cid div img{
+  .cart-item-div div img{
     width: 100%;
     margin-bottom: 20px;
   }

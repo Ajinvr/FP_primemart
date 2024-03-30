@@ -10,7 +10,7 @@ import { storeorderitem } from '../redux/features/orderitem';
 
 function ProductDetail() {
   const dispatch = useDispatch();
-
+  const user = useSelector(state => state.auth.value);
   let { id } = useParams();
   const [product, setProduct] = useState(null);
   const navigate = useNavigate();
@@ -28,19 +28,7 @@ function ProductDetail() {
   }, [storeProduct, id]);
 
   
-  const notify = (message,status) => {
-    toast[status](message, {
-      position: "top-right",
-      autoClose: 2000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-    });
-  };
-
+ 
 
 
   const addToCart = async (e) => {
@@ -72,6 +60,18 @@ function order() {
 }
 
 
+const notify = (message,status) => {
+  toast[status](message, {
+    position: "top-right",
+    autoClose: 2000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+  });
+};
 
 
   return (

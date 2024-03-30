@@ -3,7 +3,7 @@ import {BrowserRouter,Routes,Route} from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import "./styles/app.css"
 import { useEffect} from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { storeproduct } from "../src/redux/features/productSlice";
 import Protectedroute from './utils/Protectedroute';
@@ -21,28 +21,24 @@ import Profile from './componets/Profile';
 import Cart from './componets/Cart';
 import Order from './componets/Order';
 import Payment from './componets/Payment';
-
-
-
+import axiosInstance from './axiosInstance'
 
 
 
 
 function App() {
   const isAuthenticated = useSelector((state)=>state.auth.value.isAuthenticated)
-   
-  const dispatch = useDispatch();
+        const dispatch = useDispatch();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get("http://192.168.1.37:5000/allproducts");
-        dispatch(storeproduct(res.data));
-      } catch (error) {
-        console.log("Error fetching data:", error);
-      }
-    };
-
+            const fetchData = async () => {
+                 try {
+                       const res = await axiosInstance.get('/allproducts')
+                            dispatch(storeproduct(res.data));
+                 } catch (error) {
+                         console.log("Error fetching data:", error);
+                 }
+            };
     fetchData();
   }, []);
 

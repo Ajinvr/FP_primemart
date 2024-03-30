@@ -6,22 +6,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import { storeorderitem } from '../redux/features/orderitem';
 import { setpath } from '../redux/features/redirectSlice';
+import axiosInstance from '../axiosInstance';
+import Headline from './Headline';
 
 const Cart = () => {
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
+
   const user = useSelector(state => state.auth.value);
   const products = useSelector(state => state.product.value);
 
   const [cartItems, setCartItems] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
-  const [rs, setrs] = useState(0);
+  const [rs, setRs] = useState(0);
 
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const res = await axios.get("http://192.168.1.37:5000/cart", {
+        const res = await axiosInstance.get("/cart", {
           headers: { Authorization: `Bearer ${user.token}` }
         });
         const cartItemIds = res.data;
@@ -34,10 +36,8 @@ const Cart = () => {
           }
         });
         setCartItems(cartItemsData);
-
         const totalValue = cartItemsData.reduce((acc, curr) => acc + curr.quantity * curr.price, 0);
         setTotalAmount(totalValue);
-
       } catch (error) {
         console.log("Error fetching data:", error);
       }
@@ -48,22 +48,18 @@ const Cart = () => {
   async function dcpq(e) {
     let productId = e.target.id;
     try {
-      const res = await axios.put(
-        "http://192.168.1.37:5000/cart",
-        {
-          productid: productId,
-          action: "put"
-        },
-        {
-          headers: { Authorization: `Bearer ${user.token}` }
-        }
-      );
+      const res = await axiosInstance.put("cart", {
+        productid: productId,
+        action: "put"
+      }, {
+        headers: { Authorization: `Bearer ${user.token}` }
+      });
 
       const updatedCartItems = cartItems.map(item => {
         if (item._id === productId) {
           const updatedQuantity = item.quantity - 1;
           if (updatedQuantity < 1) {
-            rmfc(e); // If quantity becomes less than 1, remove the item from cart
+            rmfc(e);
           }
           return { ...item, quantity: updatedQuantity };
         } else {
@@ -72,7 +68,7 @@ const Cart = () => {
       });
 
       setCartItems(updatedCartItems);
-      setrs(res.data);
+      setRs(res.data);
     } catch (error) {
       notify("Error removing item from cart", "error");
     }
@@ -81,16 +77,13 @@ const Cart = () => {
   async function rmfc(e) {
     let productId = e.target.id;
     try {
-      const res = await axios.put("http://192.168.1.37:5000/cart",
-        {
-          productid: productId,
-          action: "delete"
-        },
-        {
-          headers: { Authorization: `Bearer ${user.token}` }
-        }
-      );
-      setrs(res.data);
+      const res = await axiosInstance.put("cart", {
+        productid: productId,
+        action: "delete"
+      }, {
+        headers: { Authorization: `Bearer ${user.token}` }
+      });
+      setRs(res.data);
     } catch (error) {
       notify("Error removing item from cart", "error");
     }
@@ -99,44 +92,33 @@ const Cart = () => {
   const icq = async (e) => {
     let productId = e.target.id;
     try {
-      const res = await axios.post('http://localhost:5000/cart', {
+      const res = await axiosInstance.post('/cart', {
         productId: productId
       }, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
-      setrs(res.data);
+      setRs(res.data);
     } catch (error) {
       console.error('Error updating data:', error);
+    }
+  };
+
+  async function order() {
+    dispatch(storeorderitem(cartItems));
+    dispatch(setpath('/order'));
+    const amount = totalAmount;
+    try {
+      let res = await axiosInstance.post("/payment", { amount });
+      // openrazorpay(res.data);
+      console.log(res.data);
+    } catch (error) {
+      notify('error creating order', 'error');
     }
   }
 
 
- async function order() {
-    dispatch(storeorderitem(cartItems))
-      dispatch(setpath('/order'))
-      const amount = totalAmount
-     try {
-      let res = await axios.post("http://localhost:5000/payment",{amount})
-      console.log(res.data);
-      openrazorpay(res.data)
-     } catch (error) {
-      notify('error creating order','error')
-     }
-  }
- 
-  
-  
-async function openrazorpay(data) {
-  const options = {
-    "key":"rzp_test_TZtYXwjdF9MvFF",
-    "amount" : data.amount,
-    "name": "primemart"
-  }
-  var rzp = new window.Razorpay(options);
-  rzp.open()
 
-  console.log(rzp);
-}  
+ 
 
   const notify = (message, status) => {
     toast[status](message, {
@@ -152,34 +134,34 @@ async function openrazorpay(data) {
   };
 
   return (
-    <div className="cart-container cd">
+    <div className="cart-container">
       {cartItems == null || cartItems.length === 0 ? (
         <div className="empty-cart">
           <h1>Your Shopping Cart is Empty</h1>
           <button className="btn-shop-now" onClick={() => navigate('/')}>Start Shopping Now</button>
         </div>
       ) : (
-        <div className='cida'>
-          <h1>Cart items</h1>
+        <div className='cart-container'>
+          <Headline value={'Cart Items'}/>
           <div className='cartdiv'>
             {cartItems.map((item, index) => (
-              <div className='cid' key={index}>
+              <div className='cart-item-div' key={index}>
                 <div>
                   <img onClick={() => { navigate(`/product/${item._id}`) }} src={item.filename} alt="sample img" />
                 </div>
-                <div className='dd'>
+                <div className='cart-text'>
                   <h6>{item.title}</h6>
                   <p>{item.description}</p>
-                  <div className='bg'>
+                  <div className='pqr-div'>
                     <div className='cpr'>
-                      <span id={item._id}>${item.price}</span>
+                      <span id={item._id}><h6>Price : {item.price}/-</h6></span>
                     </div>
-                    <div className='cpq'>
+                    <div className='cart-product-quantity'>
                       <button onClick={dcpq} id={item._id}>-</button>
                       <span>{item.quantity}</span>
                       <button onClick={icq} id={item._id}>+</button>
                     </div>
-                    <div className='cpr'>
+                    <div className='remove-btn'>
                       <button onClick={rmfc} id={item._id}>Remove</button>
                     </div>
                   </div>
@@ -190,14 +172,13 @@ async function openrazorpay(data) {
           <div className='cartitem'>
             <hr />
             <h3>Total : {totalAmount}</h3>
-            <div className='cpb' onClick={order}>
-              <h3 onClick={order}>buynow</h3>
+            <div className='order-btn' onClick={order}>
+              <h3>buynow</h3>
             </div>
             <hr />
           </div>
         </div>
       )}
-      {/* <ToastContainer /> */}
     </div>
   );
 };
