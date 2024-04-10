@@ -20,8 +20,10 @@
   border-bottom: 2px solid;
   }
 
+  .theme{
+    color: black;
+  }
 
-  /* body{
-    background-color: black;
-    color: white;
-  } */
+  .body{
+    scroll-behavior:smooth;
+  }

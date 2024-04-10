@@ -1,3 +1,4 @@
+// eslint-disable-next-line eqeqeq
 import React, { useState } from 'react'
 import "../styles/login.css"
 import axios from 'axios';
@@ -104,14 +105,14 @@ async function login() {
       let password = document.querySelector("#Password").value;
 if (emailv === true && passwordv === true) {
     try {
-           const result = await axios.post('http://localhost:5000/login',{email,password})
+           const result = await axios.post('http://192.168.1.37:5000/login',{email,password})
                 if (result.data.user == false) {
                     notify(result.data.message,result.data.toaststatus); 
                 }
                    else if (result.data.user === true ) {
                         notify(result.data.message,result.data.toaststatus);
                              dispatch(authuser(result.data));
-                                 console.log(rp);
+                                localStorage.setItem('userData', JSON.stringify(result.data));
                                    setTimeout(() => {
                                          navigate(`${rp}`);
                                     }, 1000);

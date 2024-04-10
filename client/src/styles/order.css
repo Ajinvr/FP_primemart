@@ -4,11 +4,12 @@
     flex-direction: column;
     width: 90vw;
     margin: 0 auto;
+    margin-top: 10px;
   }
   
   .order-products {
     padding: 10px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid;
     margin-bottom: 20px;
   }
   
@@ -23,12 +24,20 @@
   .order-page ul {
     list-style: none;
     padding: 0;
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: center;
   }
   
   .order-page li {
     margin-bottom: 5px;
   }
   
+  .total-price{
+   padding-top: 15px;
+    border-top: 1px solid;
+  }
+
   .order-page .total-price {
     margin-top: 20px;
     font-weight: bold;
@@ -46,7 +55,7 @@
   .order-page input {
     width: 100%;
     padding: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid;
     border-radius: 4px;
   }
   
@@ -70,7 +79,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-around; /* Distribute items evenly */
+    justify-content: space-around;
     margin: 10px auto;
     gap: 30px;
     width: 100%;
@@ -78,21 +87,22 @@
 
 
 
-.cid{
+.oid{
   margin: 20px;
   padding: 10px;
   overflow: hidden;
   display: flex;
-  border: 1px solid black;
+  border: 1px solid ;
   gap:30px;
-  width: 80vw;
+  width: 100vw;
+  border-radius: 10px;
 }
 
-.cid img{
+.oid img{
   padding: 20px;
  height: 150px;
  width: 150px;
- border: 1px solid black;
+ border-radius: 25px;
 }
 
 
@@ -116,13 +126,6 @@
    overflow: hidden;
 }
 
-.cpr button{
-background-color: red;
-color: white;
-height: 33px;
-width: 90px;
-}
-
 .bg{
   display: flex;
   gap: 20px;
@@ -130,11 +133,11 @@ width: 90px;
 }
 
 @media (max-width:600px) {
-  .cid{
+  .oid{
     display: block;
   }
 
-  .cid div img{
+  .oid div img{
     width: 100%;
     margin-bottom: 20px;
   }

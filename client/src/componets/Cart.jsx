@@ -1,7 +1,7 @@
+// eslint-disable-next-line eqeqeq
 import React, { useEffect, useState } from 'react';
 import '../styles/cart.css';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import { storeorderitem } from '../redux/features/orderitem';
@@ -106,24 +106,15 @@ const Cart = () => {
   async function order() {
     dispatch(storeorderitem(cartItems));
     dispatch(setpath('/order'));
-    const amount = totalAmount;
-    try {
-      let res = await axiosInstance.post("/payment", { amount });
-      // openrazorpay(res.data);
-      console.log(res.data);
-    } catch (error) {
-      notify('error creating order', 'error');
-    }
+    navigate('/order')
   }
-
-
 
  
 
   const notify = (message, status) => {
     toast[status](message, {
       position: "top-right",
-      autoClose: 2000,
+      autoClose: 1000,
       hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,
@@ -145,7 +136,7 @@ const Cart = () => {
           <Headline value={'Cart Items'}/>
           <div className='cartdiv'>
             {cartItems.map((item, index) => (
-              <div className='cart-item-div' key={index}>
+              <div className='cart-item-div btheme' key={index}>
                 <div>
                   <img onClick={() => { navigate(`/product/${item._id}`) }} src={item.filename} alt="sample img" />
                 </div>
@@ -156,10 +147,10 @@ const Cart = () => {
                     <div className='cpr'>
                       <span id={item._id}><h6>Price : {item.price}/-</h6></span>
                     </div>
-                    <div className='cart-product-quantity'>
-                      <button onClick={dcpq} id={item._id}>-</button>
+                    <div className='cart-product-quantity  btheme'>
+                      <button className='cqbtheme' onClick={dcpq} id={item._id}>-</button>
                       <span>{item.quantity}</span>
-                      <button onClick={icq} id={item._id}>+</button>
+                      <button className='cqbtheme' onClick={icq} id={item._id}>+</button>
                     </div>
                     <div className='remove-btn'>
                       <button onClick={rmfc} id={item._id}>Remove</button>
@@ -171,7 +162,7 @@ const Cart = () => {
           </div>
           <div className='cartitem'>
             <hr />
-            <h3>Total : {totalAmount}</h3>
+            <h3>Total : {totalAmount} /-</h3>
             <div className='order-btn' onClick={order}>
               <h3>buynow</h3>
             </div>

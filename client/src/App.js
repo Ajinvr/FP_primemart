@@ -1,9 +1,7 @@
-import React from 'react'
 import {BrowserRouter,Routes,Route} from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import "./styles/app.css"
-import { useEffect} from 'react';
-// import axios from 'axios';
+import React,{ useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { storeproduct } from "../src/redux/features/productSlice";
 import Protectedroute from './utils/Protectedroute';
@@ -16,19 +14,38 @@ import Home from './componets/Home';
 import Login from './componets/Login'
 import Signup from './componets/signup'
 import ProductDetail from './componets/ProductDetail';
-import Addproduct from './componets/Addproduct';
 import Profile from './componets/Profile';
 import Cart from './componets/Cart';
 import Order from './componets/Order';
-import Payment from './componets/Payment';
 import axiosInstance from './axiosInstance'
+import { authuser } from "./redux/features/authSlice";
+import Addproduct from './componets/dashboard/components/Addproduct'
 
-
-
+// eslint-disable-next-line eqeqeq
 
 function App() {
-  const isAuthenticated = useSelector((state)=>state.auth.value.isAuthenticated)
-        const dispatch = useDispatch();
+
+     const dispatch = useDispatch();
+
+     useEffect(()=>{
+          const checkLocalStorage = () => {
+               const userData = localStorage.getItem('userData');
+                 if (userData) {
+                        let userdata = JSON.parse(userData);
+                        isAuthenticated = userdata.isAuthenticated
+                                  dispatch(authuser(userdata));
+                               
+                    } else {
+                        console.log("no");
+                    }
+           };
+           checkLocalStorage();
+     },[dispatch])
+     
+
+let isAuthenticated  =  
+       
+// useSelector((state)=>state.auth.value.isAuthenticated)
 
   useEffect(() => {
             const fetchData = async () => {
@@ -44,6 +61,30 @@ function App() {
 
   
 
+ 
+
+  useEffect(() => {
+    // Simulating token expiration error
+    const error = { code: 'TOKEN_EXPIRED' };
+
+    // Example logic to catch token expiration errors
+    const errorHandler = (error) => {
+      if (error.code === 'TOKEN_EXPIRED') {
+        // Redirect to login page
+       console.log('token redirect');
+      }
+    };
+
+    // Listen for errors
+    window.addEventListener('error', errorHandler);
+
+    return () => {
+      // Cleanup event listener
+      window.removeEventListener('error', errorHandler);
+    };
+  }, []);
+
+
   return (
     <BrowserRouter>
             <Header/>
@@ -58,9 +99,8 @@ function App() {
                       {/* protected routes */}
                       <Route path='/cart'element={<Protectedroute isAuthenticated={isAuthenticated}> <Cart/> </Protectedroute>}/> 
                       <Route path='/profile'element={<Protectedroute isAuthenticated={isAuthenticated}> <Profile/> </Protectedroute>}/> 
-                      <Route path='/admindashboard'element={<Protectedroute isAuthenticated={isAuthenticated}> <Profile/> </Protectedroute>}/> 
                       <Route path='/order'element={<Protectedroute isAuthenticated={isAuthenticated}> <Order/> </Protectedroute>}/> 
-                      <Route path='/payment'element={<Protectedroute isAuthenticated={isAuthenticated}> <Payment/> </Protectedroute>}/> 
+                      <Route path='/sellerdashboard'element={<Protectedroute isAuthenticated={true}> <Addproduct/> </Protectedroute>}/> 
                       <Route path='/*' element={<Notfound/>}/> 
                  </Routes>
             <Footer/>

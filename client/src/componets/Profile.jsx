@@ -1,13 +1,18 @@
-import React, { useState } from 'react'
-import { useSelector } from 'react-redux';
+// eslint-disable-next-line eqeqeq
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import "../styles/profile.css"
+import { authuser } from '../redux/features/authSlice';
 
 
 
 
 function Profile() {
+  
+  const dispatch = useDispatch()
 
-  const user = useSelector(state => state.auth.value)
+
+  const user =  useSelector(state => state.auth.value) 
        const [orders, setorders] = useState(null);
 
   return (
@@ -22,7 +27,7 @@ function Profile() {
     ) : (
       <div className="no-orders">
           <h1>Your Order History is Empty</h1>
-               <p>You haven't placed any orders yet!</p>
+               <h6>You haven't placed any orders yet!</h6>
       </div>
     )
 }

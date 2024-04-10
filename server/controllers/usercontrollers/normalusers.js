@@ -30,7 +30,7 @@ const signup = async (req,res)=>{
                                let usn = signupdataset.name
                                let usi = signupdataset._id
                                let usr = signupdataset.role
-                               let token = jwt.sign({usi,name,email,usr},process.env.jwt_Key,{expiresIn:"24h"})
+                               let token = jwt.sign({usi,name,email,usr},process.env.jwt_Key,{expiresIn:"1min"})
                                   res.cookie("token",token).status(201).json({toaststatus:"success", message:"signup successfull",isAuthenticated:true,usn,usi,usr,token})
                       }
               

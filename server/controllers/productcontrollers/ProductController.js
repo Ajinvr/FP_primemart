@@ -1,10 +1,12 @@
 const addproduct = require("../../db/models/productschema")
-
+const cloudinary = require('../../helper/imageUpload');
+const fs = require('fs');
+const path = require('path');
 
 // all products ===========================================================================================
 exports.allProducts = async (req, res) => {
     try {
-        let allProducts = await addproduct.find();
+        let allProducts = await addproduct.find().sort({_id: -1}).limit(30);
         res.json(allProducts);
     } catch (error) {
         console.log(error);
@@ -20,6 +22,10 @@ exports.addProducts = async (req, res) => {
              return res.json({message: 'Provide a valid file', toaststatus: "error" });
            }else{
                 try{
+                    let image = await cloudinary.uploader.upload(req.file.path,{
+                        width:500,height:500,
+                        crop:'fill'
+                      })
                     const savedproduct = await addproduct.create({
                           userid: userdata.usi,
                           title:req.body.title,
@@ -27,10 +33,16 @@ exports.addProducts = async (req, res) => {
                           catogory:req.body.catogory,
                           quantity:req.body.quantity,
                           description:req.body.description,
-                          filename:`http://localhost:5000/photos/${req.file.filename}`
+                          filename:image.url
             });
-
                   let productid = savedproduct._id
+                  const absoluteFilePath = path.resolve(req.file.path);
+                  fs.unlink(absoluteFilePath, (err) => {
+                    if (err) {
+                      console.error('Error deleting file:', err);
+                      return;
+                    }
+                  });
                   res.json({ message: 'product added successfully!',toaststatus:"success",productid});
                 }catch (error) {
                    res.json({message:'Error adding product',toaststatus: "error" });
@@ -43,7 +55,63 @@ exports.addProducts = async (req, res) => {
    }
 };
 
+// deleting products from listing =================================================================================
+exports.deleteproduct = async (req,res) =>{
+    let userdata = global.userdata;
+       if (userdata.usr == "seller" || userdata.usr == "admin") {
+             const productid = req.body.productid
+             try {
+              let deletedproduct = await addproduct.findByIdAndDelete(productid)
+                 let url =  deletedproduct.filename
+                     const parts = url.split("/");
+                          const filenameWithExtension = parts[parts.length - 1];
+                                const filenameParts = filenameWithExtension.split(".");
+                                     const filenameWithoutExtension = filenameParts.slice(0, -1).join(".");
+                await cloudinary.uploader.destroy(filenameWithoutExtension)
 
+               res.json({ message: 'product deleted successfully!',toaststatus:"success"})
+             } catch (error) {
+                console.log(error);
+                res.json({message:'Error deleting product',toaststatus: "error" });
+             }
+       }
 
+}
 
+// editing products on listing =================================================================================
+ 
 
+exports.updateproduct = async (req, res) => {
+    let userdata = req.body.user;
+       if (userdata.usr == "seller" || userdata.usr == "admin") {
+           const changeddata = req.body.changedData;
+               const productid = req.params.id;
+        try {
+             let modifiedProduct = await addproduct.findOne({ _id: productid});
+                if (modifiedProduct) {
+                    res.json(req.body.changedData)
+                    // try {
+                    //     let image = await cloudinary.uploader.upload(req.file.path,{
+                    //         width:500,height:500,
+                    //         crop:'fill'
+                    //       }) 
+                           
+                    //       res.json(req.body)
+
+                    // } catch (error) {
+                        
+                    // }
+                }else {
+                     res.send("Product not found");
+                }
+            } catch (error) {
+            console.log("Error updating product:", error);
+            res.status(500).send("Internal server error");
+        }
+    } else {
+        res.status(403).send("Unauthorized");
+    }
+}
+
+// Pierced Owl Rose Gold Plated Stainless Steel Double
+   

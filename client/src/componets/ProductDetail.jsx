@@ -1,3 +1,4 @@
+// eslint-disable-next-line eqeqeq
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import "../styles/productdetails.css"
@@ -7,6 +8,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import Loader from './Loader';
 import { setpath } from '../redux/features/redirectSlice';
 import { storeorderitem } from '../redux/features/orderitem';
+import Reviews from './Reviews';
+
+
 
 function ProductDetail() {
   const dispatch = useDispatch();
@@ -18,8 +22,7 @@ function ProductDetail() {
   const token = useSelector(state => state.auth.value.token)
   const isAuthenticated = useSelector(state => state.auth.value.isAuthenticated)
 
- 
- 
+  
 
   useEffect(() => {
   
@@ -39,7 +42,7 @@ function ProductDetail() {
     }else{   
       try {
         let productId = e.target.parentNode.id;
-           const response = await axios.post('http://localhost:5000/cart', {
+           const response = await axios.post('http://192.168.1.37:5000/cart', {
                productId: productId
                }, {
                    headers: {Authorization: `Bearer ${token}`}
@@ -54,7 +57,10 @@ function ProductDetail() {
 
 
 function order() {
-  dispatch(storeorderitem([product]))
+  let orderproduct = {...product}
+     orderproduct.quantity = 1
+  dispatch(storeorderitem([orderproduct]))
+  console.log(product);
     dispatch(setpath('/order'))
   navigate('/order')
 }
@@ -82,9 +88,10 @@ const notify = (message,status) => {
           <img src={product.filename} alt="" />
          </div>
          <div className='ddv'>
+         
          <h3>{product.title}</h3>
          <hr />
-          <h5>Price: ${product.price}</h5>
+          <h5>Price: {product.price}/-</h5>
           <hr />
           <p>{product.description}</p> 
           <div id={product._id} className='btns'>
@@ -93,6 +100,7 @@ const notify = (message,status) => {
           </div>
          </div>
         </div>
+        
       ) : (
        <div className='loaderdiv'>
          <div>
@@ -100,6 +108,7 @@ const notify = (message,status) => {
          </div>
        </div>
       )}
+       <Reviews/>
        <ToastContainer />
     </div>
   );

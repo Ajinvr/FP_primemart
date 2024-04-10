@@ -1,8 +1,9 @@
+// eslint-disable-next-line eqeqeq
 import React, { useEffect, useState } from 'react';
 import '../styles/order.css'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
+import Headline from './Headline';
 
 const Order = () => {
   const navigate = useNavigate();
@@ -11,9 +12,7 @@ const Order = () => {
   const [products, setProducts] = useState([]);
   const [formData, setFormData] = useState({
     firstName: '',
-    lastName: '',
     addressLine1: '',
-    addressLine2: '',
     city: '',
     state: '',
     zip: '',
@@ -49,10 +48,10 @@ const Order = () => {
   return (
     <div className="order-page">
       <div className="order-products">
-        <h2>Your Order</h2>
+      <Headline value={'Confirm Order'}/>
         <ul>
           {products.map((item,index) => (
-           <div className='cid' key={index}>
+           <div className='oid' key={index}>
            <div>
              <img src={item.filename} alt="sample img" />
            </div>
@@ -72,16 +71,16 @@ const Order = () => {
           ))}
         </ul>
       <div></div>
-      <hr />
+      
         <div className="total-price">
-          <h3>Total: ${calculateTotalPrice().toFixed(2)}</h3>
+          <h3>Total: {calculateTotalPrice().toFixed(2)}/-</h3>
         </div>
       </div>
       <div className="order-form">
         <h2>Billing & Shipping Address</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="firstName">First Name:</label>
+            <label htmlFor="firstName">Name :</label>
             <input
               type="text"
               name="firstName"
@@ -91,19 +90,9 @@ const Order = () => {
               required
             />
           </div>
+          
           <div className="form-group">
-            <label htmlFor="lastName">Last Name:</label>
-            <input
-              type="text"
-              name="lastName"
-              id="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="addressLine1">Address Line 1:</label>
+            <label htmlFor="addressLine1">local Area Name :</label>
             <input
               type="text"
               name="addressLine1"
@@ -113,18 +102,9 @@ const Order = () => {
               required
             />
           </div>
+         
           <div className="form-group">
-            <label htmlFor="addressLine2">Address Line 2:</label>
-            <input
-              type="text"
-              name="addressLine2"
-              id="addressLine2"
-              value={formData.addressLine2}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="city">City:</label>
+            <label htmlFor="city">City :</label>
             <input
               type="text"
               name="city"
@@ -135,7 +115,7 @@ const Order = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="state">State:</label>
+            <label htmlFor="state">State :</label>
             <input
               type="text"
               name="state"
@@ -146,7 +126,7 @@ const Order = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="zip">Zip Code:</label>
+            <label htmlFor="zip">Zip Code :</label>
             <input
               type="text"
               name="zip"
@@ -159,7 +139,6 @@ const Order = () => {
           <button type="submit">Place Order</button>
         </form>
       </div>
-      <button onClick={navigate('/payment')}>klasifdjds</button>
     </div>
   );
 };
