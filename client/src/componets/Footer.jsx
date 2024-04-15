@@ -2,6 +2,7 @@
 import React from 'react'
 import "../styles/footer.css"
 function Footer() {
+  // eslint-disable-next-line eqeqeq
   return (
 <footer className="footer">
   <hr />
@@ -52,7 +53,7 @@ function Footer() {
       <hr />
            <div className='sb_footer_below'>
                <div className='sb_footer-cp'>
-                   <h4>copyright@2024</h4>
+                   <h4>Copyright2024@PrimeMart</h4>
                </div>
            </div>
     </footer>

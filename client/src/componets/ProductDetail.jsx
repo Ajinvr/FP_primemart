@@ -9,7 +9,7 @@ import Loader from './Loader';
 import { setpath } from '../redux/features/redirectSlice';
 import { storeorderitem } from '../redux/features/orderitem';
 import Reviews from './Reviews';
-
+import axiosInstance from '../axiosInstance';
 
 
 function ProductDetail() {
@@ -42,7 +42,7 @@ function ProductDetail() {
     }else{   
       try {
         let productId = e.target.parentNode.id;
-           const response = await axios.post('http://192.168.1.37:5000/cart', {
+           const response = await axiosInstance.post('/cart', {
                productId: productId
                }, {
                    headers: {Authorization: `Bearer ${token}`}
@@ -64,6 +64,13 @@ function order() {
     dispatch(setpath('/order'))
   navigate('/order')
 }
+
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+ 
 
 
 const notify = (message,status) => {

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import "../styles/profile.css"
-import { authuser } from '../redux/features/authSlice';
+
 
 
 
@@ -10,7 +10,9 @@ import { authuser } from '../redux/features/authSlice';
 function Profile() {
   
   const dispatch = useDispatch()
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const user =  useSelector(state => state.auth.value) 
        const [orders, setorders] = useState(null);

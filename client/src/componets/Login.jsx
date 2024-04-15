@@ -1,16 +1,15 @@
 // eslint-disable-next-line eqeqeq
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "../styles/login.css"
-import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch ,useSelector } from 'react-redux';
 import {authuser} from '../redux/features/authSlice';
+import axiosInstance from '../axiosInstance';
 
 const Login = () => {
-  let value;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -38,9 +37,6 @@ let passwordtest = /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/
 // submit============================================================
 
 function submit(event) {
-  // event.preventDefault();
-  
- 
   let email = document.querySelector("#Email")
   let password = document.querySelector("#Password")
 
@@ -95,6 +91,9 @@ function passwordtes() {
   }
 }
 
+useEffect(() => {
+  window.scrollTo(0, 0);
+}, []);
 // Validation End ===================================================
 
 
@@ -105,7 +104,7 @@ async function login() {
       let password = document.querySelector("#Password").value;
 if (emailv === true && passwordv === true) {
     try {
-           const result = await axios.post('http://192.168.1.37:5000/login',{email,password})
+           const result = await axiosInstance.post('/login',{email,password})
                 if (result.data.user == false) {
                     notify(result.data.message,result.data.toaststatus); 
                 }

@@ -9,15 +9,15 @@ const Razorpay = require("razorpay")
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cors())
-app.use("/photos",express.static('uploads'))
+
 
 // db connection
 const connectdb = require("./db/config/dbconnection");
 connectdb()
 
 // routes
-const userRotes = require("./routes/userroutes");
-app.use(userRotes)
+const userroutes = require('./routes/userroutes')
+app.use(userroutes)
 const productroutes = require("./routes/productroutes");
 app.use(productroutes)
 const orderroutes = require("./routes/orderRoute");

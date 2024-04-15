@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import '../styles/cart.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { authuser } from '../redux/features/authSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import { storeorderitem } from '../redux/features/orderitem';
 import { setpath } from '../redux/features/redirectSlice';
@@ -39,6 +40,11 @@ const Cart = () => {
         const totalValue = cartItemsData.reduce((acc, curr) => acc + curr.quantity * curr.price, 0);
         setTotalAmount(totalValue);
       } catch (error) {
+        if (error.response.status == 401) {
+          let authstate = {isAuthenticated:false}
+          dispatch(authuser(authstate));
+          localStorage.clear()
+        }
         console.log("Error fetching data:", error);
       }
     };
@@ -70,6 +76,11 @@ const Cart = () => {
       setCartItems(updatedCartItems);
       setRs(res.data);
     } catch (error) {
+      if (error.response.status == 401) {
+        let authstate = {isAuthenticated:false}
+        dispatch(authuser(authstate));
+        localStorage.clear()
+      }
       notify("Error removing item from cart", "error");
     }
   }
@@ -85,6 +96,12 @@ const Cart = () => {
       });
       setRs(res.data);
     } catch (error) {
+      if (error.response.status == 401) {
+        let authstate = {isAuthenticated:false}
+        dispatch(authuser(authstate));
+        localStorage.clear()
+      }
+      
       notify("Error removing item from cart", "error");
     }
   }
@@ -99,6 +116,11 @@ const Cart = () => {
       });
       setRs(res.data);
     } catch (error) {
+      if (error.response.status == 401) {
+        let authstate = {isAuthenticated:false}
+        dispatch(authuser(authstate));
+        localStorage.clear()
+      }
       console.error('Error updating data:', error);
     }
   };
@@ -123,13 +145,16 @@ const Cart = () => {
       theme: "colored",
     });
   };
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="cart-container">
       {cartItems == null || cartItems.length === 0 ? (
         <div className="empty-cart">
           <h1>Your Shopping Cart is Empty</h1>
           <button className="btn-shop-now" onClick={() => navigate('/')}>Start Shopping Now</button>
+          <ToastContainer/>
         </div>
       ) : (
         <div className='cart-container'>

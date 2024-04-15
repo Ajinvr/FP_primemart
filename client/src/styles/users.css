@@ -1,0 +1,62 @@
+
+.users-div-allign {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.all-users-table-tag{
+  width: 90vw;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border: 1px solid;
+}
+
+.all-users-th-tag{
+  background-color: #f2f2f200;
+  border: 2px solid ;
+  padding: 8px;
+  text-align: center;
+}
+
+.all-users-td-tag{
+  border: 2px solid ;
+  padding: 8px;
+}
+
+.admin-pannel-btns {
+  border-radius: 20px;
+  background-color: #11e619;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.admin-pannel-btns:hover {
+  background-color: #45a049;
+}
+
+.admin-pannel-btns-remove {
+  border-radius: 20px;
+  background-color: #ff1100;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.admin-pannel-btns-remove:hover {
+  background-color: #d32f2f;
+}
+

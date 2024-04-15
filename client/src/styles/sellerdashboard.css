@@ -1,0 +1,96 @@
+.dashboard-main{
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+}
+
+.menu-btn-div{
+    
+     color: black; 
+     border-top: 1px solid;
+     background-color:#FFAE42;
+     display: flex;
+     align-items: center;
+     padding: 7px;
+}
+.menu-Btn{
+    color: black;
+    font-size: 35px;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+.sidebar-main{
+    color: black;
+    height: 100vh;
+    width: 300px;
+    background-color: #ffad42;
+    z-index: 2;
+    position: absolute;
+    border-top: 1px solid;
+}
+
+.sidebar-main h4{
+text-transform: capitalize;
+padding: 10px;
+border-bottom: 1px solid;
+}
+
+.search-user-dropdown{
+    text-transform: capitalize;
+    border: none;
+    padding: 5px;
+    border-radius: 15px;
+    outline: none;
+    font-weight: 700;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: black;
+    color: white;
+  }
+
+  .dashboard-serach-bar{
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+    height: 42px;
+    background-color:black;
+    color: white;
+    border-radius: 7px;
+    padding: 10px;
+    gap: 10px;
+    border: 1px solid white;
+  }
+
+  .dashboard-serach-bar-input{
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+    gap: 10px;
+  }
+
+  .dashboard-serach-bar-input input{
+    height: 40px;
+    background-color: rgb(255, 255, 255);
+    border: 2px solid black;
+    color: rgb(0, 0, 0);
+    outline: none;
+    padding: 5px;
+    font-size: 18px;
+  }
+
+@media (max-width: 768px){
+    .sidebar-main{
+        width: 100vw;
+        height: max-content;
+    }
+
+    .sidebar-main h4{
+        border-top: 1px solid;
+        border-bottom: none;
+    }
+
+    .sidebar-main{
+        border-top:none;
+    }
+}
+
+

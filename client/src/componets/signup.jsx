@@ -1,5 +1,5 @@
 // eslint-disable-next-line eqeqeq
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
@@ -8,6 +8,7 @@ import axios from 'axios';
 import "../styles/signup.css"
 import { useDispatch, useSelector } from 'react-redux';
 import {authuser} from '../redux/features/authSlice';
+import axiosInstance from '../axiosInstance';
 
 function Signup() {
 
@@ -80,7 +81,7 @@ function Signup() {
       };
 
       try {
-        const result = await axios.post('http://localhost:5000/signup', formData);
+        const result = await axiosInstance.post('/signup', formData);
         if (result.data.message == "email already exists" || result.status === 409) {
           setEmailErr("Email already exists",);
           notify(result.data.message,result.data.toaststatus);
@@ -102,7 +103,9 @@ function Signup() {
       }
     }
   }
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   // Toast notification functions
   const notify = (message,status) => {
     toast[status](message, {

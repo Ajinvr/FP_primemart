@@ -30,7 +30,7 @@ exports.addProducts = async (req, res) => {
                           userid: userdata.usi,
                           title:req.body.title,
                           price:req.body.price,
-                          catogory:req.body.catogory,
+                          catogory:req.body.category,
                           quantity:req.body.quantity,
                           description:req.body.description,
                           filename:image.url
@@ -57,7 +57,8 @@ exports.addProducts = async (req, res) => {
 
 // deleting products from listing =================================================================================
 exports.deleteproduct = async (req,res) =>{
-    let userdata = global.userdata;
+    let userdata = req.body.user;
+    
        if (userdata.usr == "seller" || userdata.usr == "admin") {
              const productid = req.body.productid
              try {
@@ -113,5 +114,9 @@ exports.updateproduct = async (req, res) => {
     }
 }
 
-// Pierced Owl Rose Gold Plated Stainless Steel Double
-   
+// get products by id seller
+ exports.getlisisting = async (req, res) => {
+    
+      
+
+ }

@@ -8,6 +8,9 @@ import Headline from './Headline';
 const Order = () => {
   const navigate = useNavigate();
   
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const [products, setProducts] = useState([]);
   const [formData, setFormData] = useState({
@@ -42,7 +45,7 @@ const Order = () => {
     // - Send data to backend for order processing
     // - Clear form or display a success message
 
-    console.log('Order submitted:', formData); // For demonstration purposes
+    console.log('Order submitted:', formData);
   };
 
   return (

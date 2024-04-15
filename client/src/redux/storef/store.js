@@ -5,6 +5,7 @@ import authSlice from '../features/authSlice';
 import redirectSlice from '../features/redirectSlice';
 import orderitem from '../features/orderitem';
 import themeSlice from '../features/themeSlice';
+import allusersSlice from '../features/allusersSlice';
 
 const store = configureStore({
   reducer: {
@@ -12,7 +13,8 @@ const store = configureStore({
     auth:authSlice,
     redirect:redirectSlice,
     order:orderitem,
-    theme:themeSlice
+    theme:themeSlice,
+    users:allusersSlice
   },
 });
 

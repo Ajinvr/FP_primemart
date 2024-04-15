@@ -24,12 +24,7 @@ function Header() {
   };
 
 
-  useEffect(() => {
-     const timeoutId = setTimeout(() => {
-          setdropdownstate(false);
-     },3000); 
-      return () => clearTimeout(timeoutId);
-  }, [dropdownstate]);
+ 
 
 
   useEffect(() => {
@@ -56,7 +51,7 @@ function Header() {
                             <span style={{cursor:'pointer'}} onClick={()=>{navigate('/cart');dispatch(setpath('/cart'))}} className="material-symbols-outlined theme">shopping_cart</span>
                                 <span style={{cursor:'pointer'}} onClick={toggledropdown} className="material-symbols-outlined theme">person</span> 
                  {dropdownstate ? (
-                     <div className='pd'>
+                     <div onMouseLeave={toggledropdown} className='pd'>
                           <Profile/>
                           <Orders/>
                           <Userlogin/>
@@ -77,7 +72,7 @@ function Header() {
                            <span style={{cursor:'pointer'}} onClick={()=>{navigate('/cart');dispatch(setpath('/cart'))}} className="material-symbols-outlined theme">shopping_cart</span>
                                 <span style={{cursor:'pointer'}} onClick={()=>{toggledropdown()}} className="material-symbols-outlined theme">person</span> 
                      { dropdownstate ? (
-                          <div className='pd'>
+                          <div onMouseLeave={()=>{setTimeout(()=>{toggledropdown()},500)}} className='pd'>
                               <Profile/>
                               <Orders/>
                               <Userlogin/>
