@@ -10,4 +10,5 @@ router.route('/user/modifyrole/:id').put(auth,normaluser.updateuserrole)
 router.route('/allusersearch').post(normaluser.allusersserch)
 
 
+
 module.exports = router;
