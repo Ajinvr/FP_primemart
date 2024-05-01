@@ -4,24 +4,43 @@ import '../../../styles/users.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { storeusers } from '../../../redux/features/allusersSlice';
 
+
 function Users() {
   const dispatch = useDispatch();
   let users = useSelector((state) => state.users.value);
+  const currentuser = useSelector(state => state.auth.value);
+
+  const fetchUsers = async () => {
+    try {
+      const response = await axiosInstance.get('/allusers'); 
+      dispatch(storeusers(response.data));
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
+  };
+
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await axiosInstance.get('/allusers'); 
-        dispatch(storeusers(response.data));
-      } catch (error) {
-        console.error('Error fetching users:', error);
-      }
-    };
-
     fetchUsers();
   }, []);
 
+
+  const changerole = async (e)=>{
+     let role = e.target.value
+    try {
+       const response = await axiosInstance.put(`/user/modifyrole/${e.target.id}`, {
+        role
+      },{
+        headers: { Authorization: `Bearer ${currentuser.token}` }
+      }); 
+    } catch (error) {
+      console.log('Error updating users role');
+    }
+    fetchUsers()
+  }
+
   return (
+    <>
     <div className='users-div-allign'>
       {users && users.length > 0 ? (
         <div>
@@ -47,14 +66,14 @@ function Users() {
                   <td className='all-users-td-tag'>{user.email}</td>
                   <td className='all-users-td-tag'>{user.role}</td>
                   {user.role !== "seller" ? (
-                    <td className='all-users-td-tag'><button className='admin-pannel-btns' id={user._id}>Make</button></td>
+                    <td className='all-users-td-tag'> <button onClick={changerole} className='admin-pannel-btns' id={user._id} value={"seller"}>Make</button> </td>
                   ) : (
-                    <td className='all-users-td-tag'><button className='admin-pannel-btns-remove' id={user._id}>Remove</button></td>
+                    <td className='all-users-td-tag'> <button onClick={changerole} className='admin-pannel-btns-remove' id={user._id} value={"user"}>Remove</button> </td>
                   )}
                   {user.role !== "admin" ? (
-                    <td className='all-users-td-tag'><button className='admin-pannel-btns' id={user._id}>Make </button></td>
+                    <td className='all-users-td-tag'> <button onClick={changerole} className='admin-pannel-btns' id={user._id} value={'admin'}>Make </button> </td>
                   ) : (
-                    <td className='all-users-td-tag'><button className='admin-pannel-btns-remove' id={user._id}>Remove</button></td>
+                    <td className='all-users-td-tag'> <button onClick={changerole} className='admin-pannel-btns-remove' id={user._id} value={'user'}>Remove</button> </td>
                   )}
                 </tr>
               ))}
@@ -64,7 +83,11 @@ function Users() {
       ) : (
         <h2>No users found</h2>
       )}
+     
     </div>
+  
+   
+    </>
   );
 }
 

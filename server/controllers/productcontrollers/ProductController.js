@@ -6,7 +6,7 @@ const path = require('path');
 // all products ===========================================================================================
 exports.allProducts = async (req, res) => {
     try {
-        let allProducts = await addproduct.find().sort({_id: -1}).limit(30);
+        let allProducts = await addproduct.find().sort({_id: -1});
         res.json(allProducts);
     } catch (error) {
         console.log(error);
@@ -58,7 +58,6 @@ exports.addProducts = async (req, res) => {
 // deleting products from listing =================================================================================
 exports.deleteproduct = async (req,res) =>{
     let userdata = req.body.user;
-    
        if (userdata.usr == "seller" || userdata.usr == "admin") {
              const productid = req.body.productid
              try {
@@ -115,8 +114,26 @@ exports.updateproduct = async (req, res) => {
 }
 
 // get products by id seller
- exports.getlisisting = async (req, res) => {
-    
-      
 
- }
+exports.getlisistingseller = async (req, res) => {
+
+    const user = req.body.user;
+
+    if (user.usr == 'admin' || user.usr == 'seller') {
+        try {
+            let userid = user.usi
+            const listings = await addproduct.find({userid});
+    
+            if (listings.length === 0) {
+                return res.status(200).json({ message: 'No listings found' });
+            }
+            res.json({ listings });
+        } catch (error) {
+            console.error('Error fetching listings:', error);
+            res.status(500).json({ message: 'Internal server error' });
+        }
+    }else{
+        res.json({message:'access denied'})
+    }
+   
+};

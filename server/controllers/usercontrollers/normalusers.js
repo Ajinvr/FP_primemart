@@ -2,7 +2,7 @@ let bycrypt = require("bcrypt")
 let saltround = 10
 const normaluser = require("../../db/models/normaluserschema")
 const jwt = require("jsonwebtoken")
-const { json } = require("express")
+
 
 
 
@@ -31,7 +31,7 @@ const signup = async (req,res)=>{
                                let usn = signupdataset.name
                                let usi = signupdataset._id
                                let usr = signupdataset.role
-                               let token = jwt.sign({usi,name,email,usr},process.env.jwt_Key,{expiresIn:"24h"})
+                               let token = jwt.sign({usi,name,email,usr},process.env.jwt_Key)
                                   res.cookie("token",token).status(201).json({toaststatus:"success", message:"signup successfull",isAuthenticated:true,usn,usi,usr,token})
                       }
               
@@ -58,7 +58,7 @@ const signup = async (req,res)=>{
                                let usr = alluseremail.role
                                  let decryptpass = await bycrypt.compare(password,usp)
                                     if (decryptpass) {
-                                       let token = jwt.sign({usi,usn,email,usr},process.env.jwt_Key,{expiresIn:"24h"})
+                                       let token = jwt.sign({usi,usn,email,usr},process.env.jwt_Key)
                                           res.cookie("token",token).json({
                                                usn,
                                                  email,
@@ -93,16 +93,30 @@ const signup = async (req,res)=>{
 // get users based on search
 
 const allusersserch = async (req, res) => {
-   const { serchvalue, serchtext } = req.body;
-      if (!serchvalue || !serchtext) {
-         return res.status(400).json({ message:"incomplete request"});
-      }
-      try {
-          const users = await normaluser.find({ [serchvalue]: serchtext });
-               res.json(users);
-      } catch (error) {
-             console.error("Error occurred during search:", error);
-                res.status(500).json({ error: "An error occurred while processing your request." });
+    let userdata = req.body.user;
+       if (userdata.usr == "admin") {
+        
+         const { serchvalue, serchtext } = req.body;
+
+         if (serchvalue == 'All') {
+            const users = await normaluser.find();
+            return   res.json(users);
+        }
+      
+         if (!serchvalue && !serchtext) {
+               return res.status(400).json({ message:"incomplete request"});
+            }
+      
+            try {
+                const users = await normaluser.find({ [serchvalue]: serchtext });
+                     res.json(users);
+            } catch (error) {
+                   console.error("Error occurred during search:", error);
+                      res.status(500).json({ error: "An error occurred while processing your request." });
+            }
+          
+      }else{
+         res.status(401).json({message:"only admins have access to this route"})
       }
 };
 
@@ -117,7 +131,7 @@ const allusersserch = async (req, res) => {
                         try {
                             let result = await normaluser.findOne({_id});
                                if (result) {
-                                    result.role = 'user';
+                                    result.role = req.body.role;
                                         await result.save();
                                           res.status(200).json({toaststatus:"success",message:"User role updated succesfully"});
                                }else{

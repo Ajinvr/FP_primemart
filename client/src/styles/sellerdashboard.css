@@ -77,6 +77,12 @@ border-bottom: 1px solid;
     font-size: 18px;
   }
 
+  .Oncolor{
+    color: #ffffff;
+    border-color: black !important;
+  }
+
+
 @media (max-width: 768px){
     .sidebar-main{
         width: 100vw;

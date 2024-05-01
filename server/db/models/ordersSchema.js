@@ -2,27 +2,31 @@ const mongoose = require("mongoose");
 
 const orderschema = mongoose.Schema({
     userid:{
-        type:Number||String,
+        type:String,
         required:[true,"please add the  userid"]
     },
     productid:{
-        type:Number||String,
+        type:String,
         required:[true,"please add the  productid"]
     },
+    sellerid:{
+        type:String,
+        required:[true,"please add the  address"]
+    },
     address:{
-        type:Number||String,
+        type:String,
         required:[true,"please add the  address"]
     },
     pin:{
-        type:Number||String,
+        type:Number,
         required:[true,"please add the  pin"]
     },
     quantity:{
-        type:Number||String,
+        type:Number,
         required:[true,"please add the  quantity"]
     },
     paymentmethod:{
-        type:Number||String,
+        type:String,
         required:true
     }
     },

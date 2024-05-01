@@ -9,6 +9,8 @@ import { storeorderitem } from '../redux/features/orderitem';
 import { setpath } from '../redux/features/redirectSlice';
 import axiosInstance from '../axiosInstance';
 import Headline from './Headline';
+import { cartquantity } from '../redux/features/usercartSlice';
+import Footer from './Footer';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -95,6 +97,8 @@ const Cart = () => {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       setRs(res.data);
+
+      getcartquantity()
     } catch (error) {
       if (error.response.status == 401) {
         let authstate = {isAuthenticated:false}
@@ -131,7 +135,22 @@ const Cart = () => {
     navigate('/order')
   }
 
- 
+  const getcartquantity = async () =>{
+
+    try {
+      const res = await axiosInstance.get("/cart", {
+          headers: { Authorization: `Bearer ${user.token}` }
+      });
+
+      if (res && res.data) {
+          dispatch(cartquantity(res.data.length))
+      }
+
+  } catch (error) {
+      console.log(error);
+  }
+
+  }
 
   const notify = (message, status) => {
     toast[status](message, {

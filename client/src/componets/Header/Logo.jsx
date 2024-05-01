@@ -1,5 +1,4 @@
 import React from 'react'
-import logo from "../../assets/logo/PrimeMart crop.png";
 import { useNavigate } from 'react-router-dom';
 
 function Logo() {
@@ -7,7 +6,7 @@ function Logo() {
 
   return (
     <div className='hs1'>
-        <img onClick={()=>{navigate('/')}} src={logo} alt="primart logo" />     
+        <img onClick={()=>{navigate('/')}} src='https://res.cloudinary.com/dibkjqtbx/image/upload/v1714544580/staticimages/if7qh4fr6iufexaedgjt.png' alt="primart logo" />     
    </div>
   )
 }

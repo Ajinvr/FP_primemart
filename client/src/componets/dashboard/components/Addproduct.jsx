@@ -5,6 +5,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import axiosInstance from '../../../axiosInstance';
 import 'react-toastify/dist/ReactToastify.css';
 function Addproduct() {
+    
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
 
   const user = useSelector(state => state.auth.value);
 
@@ -49,7 +53,6 @@ function Addproduct() {
           formDataToSend.append('quantity', formData.quantity);
           formDataToSend.append('file', file);
   
-          // Sending the formDataToSend to the server using axios
           const response = await axiosInstance.post('/addproduct', formDataToSend, {
             headers: {
                 'Content-Type': 'multipart/form-data',

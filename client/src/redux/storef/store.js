@@ -6,6 +6,7 @@ import redirectSlice from '../features/redirectSlice';
 import orderitem from '../features/orderitem';
 import themeSlice from '../features/themeSlice';
 import allusersSlice from '../features/allusersSlice';
+import usercartSlice from '../features/usercartSlice';
 
 const store = configureStore({
   reducer: {
@@ -14,7 +15,8 @@ const store = configureStore({
     redirect:redirectSlice,
     order:orderitem,
     theme:themeSlice,
-    users:allusersSlice
+    users:allusersSlice,
+    cartlength: usercartSlice
   },
 });
 

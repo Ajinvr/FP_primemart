@@ -7,7 +7,7 @@ router.route('/signup').post(normaluser.signup)
 router.route('/login').post(normaluser.login)
 router.route('/allusers').get(normaluser.allusers)
 router.route('/user/modifyrole/:id').put(auth,normaluser.updateuserrole)
-router.route('/allusersearch').post(normaluser.allusersserch)
+router.route('/allusersearch').post(auth,normaluser.allusersserch)
 
 
 

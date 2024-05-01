@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import "../styles/profile.css"
+import Footer from './Footer';
 
 
 
@@ -33,6 +34,7 @@ function Profile() {
       </div>
     )
 }
+<Footer/>
     </div>
   )
 }
