@@ -12,5 +12,6 @@ router.route('/allproducts').get(addProductsController.allProducts);
 router.route('/deleteproduct').delete(auth,addProductsController.deleteproduct)
 router.route('/modifyproduct/:id').patch(auth,addProductsController.updateproduct)
 router.route('/getlisistingseller').post(auth,addProductsController.getlisistingseller)
+router.route('/getlisistingadmin').post(auth,addProductsController.getlisistingadmin)
 
 module.exports = router;

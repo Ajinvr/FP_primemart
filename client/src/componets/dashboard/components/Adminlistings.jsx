@@ -6,6 +6,7 @@ import {storeusers} from '../../../redux/features/allusersSlice';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../../Footer';
 import Loader from '../../Loader';
+import { ToastContainer, toast } from 'react-toastify';
 
 function Adminlistings() {
 
@@ -76,6 +77,8 @@ function Adminlistings() {
     
     
     const deletelisting = async (e) => {
+      let status 
+      let message
       setdeleting(true)
  try {
      let productid = e.target.id; 
@@ -87,15 +90,45 @@ function Adminlistings() {
              Authorization: `Bearer ${currentuser.token}`
          }
      });
-     console.log(response.data);
+       message = response.data.message
+        status = response.data.toaststatus
      fetchalllistings();
     
  } catch (error) {
+          message = 'Error deleting listing'
+          status = 'error'
      console.error('Error deleting listing:', error);
+
  }
  setdeleting(false)
+ notify(message,status)
 }
- 
+
+
+
+const notify = (message, status) => {
+    
+  toast[status](message, {
+    position: "top-right",
+    autoClose: 2000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+  });
+};
+
+
+
+if (loading) {
+   return(
+    <div style={{height:'100vh',width:'100vw',display:'flex',justifyContent:'center',alignItems:'center'}}>
+    <Loader/>    
+    </div>
+   )
+}
 
 if (deleting) {
   return(
@@ -157,13 +190,13 @@ if (deleting) {
                   </div>
                                  
                   <h5>Title : {listing.title}</h5>
-                  <hr />
+                  <hr/>
                   <p>Description : {listing.description}</p>
-                  <hr />
+                  <hr/>
                   <h5>Product id : {listing._id}</h5>
-                  <hr />
+                  <hr/>
                   <h5>Price : {listing.price}/-</h5>
-                  <hr />
+                  <hr/>
                   <h5>Stock : {listing.quantity}</h5>
              
               </div>
@@ -181,6 +214,7 @@ if (deleting) {
 </>
     )}
    <Footer/>
+   <ToastContainer/>
       </div>
     )
 }

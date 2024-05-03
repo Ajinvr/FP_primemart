@@ -54,7 +54,7 @@ function Header() {
                         <Theme/>
                         
                         <div className='cart-icon-header' >
-                            <div className='cart-icon-header-value'>{cartquatity || 0}</div>
+                            <div style={{color:"white"}} className='cart-icon-header-value'>{cartquatity || 0}</div>
                             <span style={{cursor:'pointer'}} onClick={()=>{navigate('/cart');dispatch(setpath('/cart'))}} className="material-symbols-outlined theme">shopping_cart</span>
                         </div>
                             
@@ -82,7 +82,7 @@ function Header() {
                       <Theme/>
 
                       <div className='cart-icon-header'>
-                      <div className='cart-icon-header-value'>{cartquatity || 0}</div>
+                      <div style={{color:"white"}} className='cart-icon-header-value'>{cartquatity || 0}</div>
                           <span style={{cursor:'pointer'}} onClick={()=>{navigate('/cart');dispatch(setpath('/cart'))}} className="material-symbols-outlined theme">shopping_cart</span>
                       </div>
 

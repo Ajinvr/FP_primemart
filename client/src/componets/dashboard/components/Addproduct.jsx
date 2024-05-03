@@ -60,7 +60,6 @@ function Addproduct() {
             }
         });
         
-          console.log(response.data);
           setiscreating(false);
           notify(response.data.message,response.data.toaststatus);
       } catch (error) {

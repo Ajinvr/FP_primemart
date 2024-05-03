@@ -137,3 +137,27 @@ exports.getlisistingseller = async (req, res) => {
     }
    
 };
+
+
+// get all listingss admin
+
+exports.getlisistingadmin = async (req, res) => {
+
+    const user = req.body.user;
+
+    if (user.usr == 'admin') {
+        try {
+            const listings = await addproduct.find();
+            if (listings.length === 0) {
+                return res.status(200).json({ message: 'No listings found' });
+            }
+            res.json({ listings});
+        } catch (error) {
+            console.error('Error fetching listings:', error);
+            res.status(500).json({ message: 'Internal server error' });
+        }
+    }else{
+        res.json({message:'access denied'})
+    }
+   
+};
