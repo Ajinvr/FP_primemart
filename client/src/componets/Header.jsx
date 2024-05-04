@@ -76,9 +76,6 @@ function Header() {
       ) : (
            <>
             <Logo/>
-            
-            <h2>hello from new machine</h2>
-
                <div className='hs2'>
                    <Search/>
                       <Theme/>
